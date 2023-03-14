@@ -43,13 +43,13 @@ class _UsersHomePageState extends State<UsersHomePage> {
                 alignment: Alignment.topCenter,
                 padding: const EdgeInsets.all(2.0),
                 margin: const EdgeInsets.only(
-                  top: 80.0,
+                  top: 50.0,
                   bottom: 40.0,
-                  right: 20.0,
-                  left: 20.0,
+                  right: 10.0,
+                  left: 10.0,
                 ),
                 width: MediaQuery.of(context).size.width * 0.95,
-                height: 220,
+                height: MediaQuery.of(context).size.height * 0.22,
                 decoration: BoxDecoration(
                   color: Colors.white,
                   border: Border.all(color: Colors.black12),
@@ -65,10 +65,10 @@ class _UsersHomePageState extends State<UsersHomePage> {
                           top: 0.0,
                           bottom: 0.0,
                           right: 0.0,
-                          left: 20.0,
+                          left: 5.0,
                         ),
-                        width: 100,
-                        height: 100,
+                        width: MediaQuery.of(context).size.width * 0.21,
+                        height: MediaQuery.of(context).size.height * 0.12,
                         decoration: const BoxDecoration(
                           color: Colors.black45,
                         )),
@@ -77,7 +77,7 @@ class _UsersHomePageState extends State<UsersHomePage> {
                       //店のアイコン画像とpt表示とID・名前
                       padding: const EdgeInsets.all(0.0),
                       margin: const EdgeInsets.all(0.0),
-                      width: 215,
+                      width: MediaQuery.of(context).size.width * 0.7,
                       height: 210,
                       decoration: const BoxDecoration(
                         color: Colors.white,
@@ -94,7 +94,7 @@ class _UsersHomePageState extends State<UsersHomePage> {
                             width: MediaQuery.of(context).size.width * 0.95,
                             height: 80,
                             decoration: const BoxDecoration(
-                              color: Colors.white,
+
                             ),
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.end,
@@ -137,7 +137,7 @@ class _UsersHomePageState extends State<UsersHomePage> {
                             width: MediaQuery.of(context).size.width * 0.95,
                             height: 38,
                             decoration: const BoxDecoration(
-                              color: Colors.white,
+
                             ),
                             child: Row(
                               crossAxisAlignment: CrossAxisAlignment.end,
@@ -146,7 +146,6 @@ class _UsersHomePageState extends State<UsersHomePage> {
                                 Text('ID:'),
 
                                 Text(' PokerName: '),
-
                               ],
                             ),
                           ), //名前・IDの
@@ -165,11 +164,12 @@ class _UsersHomePageState extends State<UsersHomePage> {
                   right: 0.0,
                   left: 0.0,
                 ),
-                width: MediaQuery.of(context).size.width ,
-                height: 150,
+                width: MediaQuery.of(context).size.width * 0.95,
+                height: MediaQuery.of(context).size.width * 0.6,
                 decoration: BoxDecoration(
                   color: Colors.white,
                   border: Border.all(color: Colors.black12),
+                  borderRadius: BorderRadius.circular(10),
                 ),
 
             ),
