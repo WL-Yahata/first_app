@@ -1,4 +1,4 @@
-import 'package:first_app/view/users%20view/users%20screen%20page.dart';
+import 'package:first_app/view/users%20view/CreateAccount.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'firebase_options.dart';
@@ -6,11 +6,15 @@ import 'firebase_options.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
-  runApp(MyApp());
+  runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
+
+  //Future<void> addUser() async {
+   // await _users.add({'PokerName': 'BirthDay'});
+   // print('Userの追加完了');}
 
   @override
   Widget build(BuildContext context) {
@@ -37,6 +41,6 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(home: UsersScreenPage());
+    return const MaterialApp(home: CreateAccount());
   }
 }
