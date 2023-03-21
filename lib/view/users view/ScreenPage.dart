@@ -2,7 +2,6 @@ import 'package:first_app/view/users%20view/users%20home/users%20home%20page.dar
 import 'package:first_app/view/users%20view/users%20order/users%20order%20page.dart';
 import 'package:first_app/view/users%20view/users%20schedule/users%20schedule%20page.dart';
 import 'package:first_app/view/users%20view/users%20tournament/users%20tournament%20page.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class UsersScreenPage extends StatefulWidget {
