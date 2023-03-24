@@ -13,8 +13,8 @@ class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
   //Future<void> addUser() async {
-   // await _users.add({'PokerName': 'BirthDay'});
-   // print('Userの追加完了');}
+  // await _users.add({'PokerName': 'BirthDay'});
+  // print('Userの追加完了');}
 
   @override
   Widget build(BuildContext context) {
@@ -38,9 +38,12 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(home: UsersScreenPage());
+    return const MaterialApp(
+      debugShowCheckedModeBanner: false,
+      title: 'FireBase',
+      home: UsersScreenPage(),
+    );
   }
 }
