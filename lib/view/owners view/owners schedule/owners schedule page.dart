@@ -1,3 +1,5 @@
+import 'package:first_app/view/owners%20view/owners%20schedule/calendar%20set.dart';
+import 'package:first_app/view/owners%20view/owners%20schedule/tournament%20list%20in%20sche.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:syncfusion_flutter_calendar/calendar.dart';
@@ -53,13 +55,35 @@ class OwnersSchedulePageState extends State<OwnersSchedulePage> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          centerTitle: true,
-          title: const Text(
-            'schedule',
-            style: TextStyle(color: Colors.black54),
-          ),
-          backgroundColor: Colors.white,
-          elevation: 1,
+            centerTitle: true,
+            title: const Text(
+              'schedule',
+              style: TextStyle(color: Colors.black54),
+            ),
+            backgroundColor: Colors.white,
+            elevation: 1,
+            actions: [
+              IconButton(
+                icon: Icon(Icons.list),
+                color: Colors.grey,
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => const ScheTournamentList()),
+                  );
+                },
+              )
+            ]),
+        floatingActionButton: FloatingActionButton(
+          onPressed: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => const CalenderSet()),
+            );
+          },
+          backgroundColor: Colors.black45,
+          child: const Icon(Icons.add),
         ),
         body: SfCalendar(
           view: CalendarView.month,
