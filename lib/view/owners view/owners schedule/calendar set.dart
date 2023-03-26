@@ -10,6 +10,81 @@ class CalenderSet extends StatefulWidget {
 
 class _CalenderSetState extends State<CalenderSet> {
   String selectedTournament = "0";
+  String initMonth = DateTime.now().month.toString().padLeft(2, '0');
+  String initDay = DateTime.now().day.toString().padLeft(2, '0');
+  String inityear = DateTime.now().year.toString();
+
+  List<String> monthList() {
+    final month = <String>[
+      '01',
+      '02',
+      '03',
+      '04',
+      '05',
+      '06',
+      '07',
+      '08',
+      '09',
+      '10',
+      '11',
+      '12'
+    ];
+    return month;
+  }
+
+  List<String> dayThirtyOne() {
+    final day = <String>[
+      '01',
+      '02',
+      '03',
+      '04',
+      '05',
+      '06',
+      '07',
+      '08',
+      '09',
+      '10',
+      '11',
+      '12',
+      '13',
+      '14',
+      '15',
+      '16',
+      '17',
+      '18',
+      '19',
+      '20',
+      '21',
+      '22',
+      '23',
+      '24',
+      '25',
+      '26',
+      '27',
+      '28',
+      '29',
+      '30',
+      '31'
+    ];
+    return day;
+  }
+
+  List<String> yearTen() {
+    final year = <String>[
+      '2023',
+      '2024',
+      '2025',
+      '2026',
+      '2027',
+      '2028',
+      '2029',
+      '2030',
+      '2031',
+      '2032',
+      '2033',
+    ];
+    return year;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -68,6 +143,66 @@ class _CalenderSetState extends State<CalenderSet> {
                       isExpanded: false,
                     );
                   }),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: const [
+                  Text('年'),
+                  Text('月'),
+                  Text('日'),
+                ],
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  DropdownButton<String>(
+                    value: inityear,
+                    items: yearTen()
+                        .map((list) =>
+                            DropdownMenuItem(value: list, child: Text(list)))
+                        .toList(),
+                    onChanged: (value) {
+                      setState(() {
+                        inityear = value!;
+                      });
+                    },
+                  ),
+                  DropdownButton<String>(
+                    value: initMonth,
+                    items: monthList()
+                        .map((list) =>
+                            DropdownMenuItem(value: list, child: Text(list)))
+                        .toList(),
+                    onChanged: (value) {
+                      setState(() {
+                        initMonth = value!;
+                      });
+                    },
+                  ),
+                  DropdownButton<String>(
+                    value: initDay,
+                    items: dayThirtyOne()
+                        .map((list) =>
+                            DropdownMenuItem(value: list, child: Text(list)))
+                        .toList(),
+                    onChanged: (value) {
+                      setState(() {
+                        initDay = value!;
+                      });
+                    },
+                  ),
+                ],
+              ),
+              Container(
+                child: Row(
+                  children: [
+                    Text(selectedTournament),
+                    Text(inityear),
+                    Text(initMonth),
+                    Text(initDay),
+                    Text('010')
+                  ],
+                ),
+              ), //debug用に作ったもの「selectedTournament」が変数でこれを日付と共にfirestoreに入れる
             ],
           ),
         ),
