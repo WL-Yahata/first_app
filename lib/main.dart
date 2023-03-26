@@ -2,6 +2,7 @@ import 'package:first_app/view/users%20view/Login.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'firebase_options.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -9,12 +10,15 @@ void main() async {
   runApp(const MyApp());
 }
 
+final FirebaseFirestore firestore = FirebaseFirestore.instance;
+final CollectionReference _users = firestore.collection('users');
+
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
   //Future<void> addUser() async {
-   // await _users.add({'PokerName': 'BirthDay'});
-   // print('Userの追加完了');}
+  // await _users.add({'PokerName': 'BirthDay'});
+  // print('Userの追加完了');}
 
   @override
   Widget build(BuildContext context) {
@@ -38,9 +42,11 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(home: LoginPage());
+
+    return const MaterialApp(
+      debugShowCheckedModeBanner: false,      
+      home: LoginPage());
   }
 }
