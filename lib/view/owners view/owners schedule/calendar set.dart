@@ -199,6 +199,7 @@ class _CalenderSetState extends State<CalenderSet> {
                     Text(inityear),
                     Text(initMonth),
                     Text(initDay),
+                    Text('010')
                   ],
                 ),
               ), //debug用に作ったもの「selectedTournament」が変数でこれを日付と共にfirestoreに入れる
