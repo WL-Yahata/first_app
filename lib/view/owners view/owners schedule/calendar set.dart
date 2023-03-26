@@ -34,25 +34,23 @@ class _CalenderSetState extends State<CalenderSet> {
               const Text('トーナメント名'),
               StreamBuilder<QuerySnapshot>(
                   stream: FirebaseFirestore.instance
-                      .collection('TournamentDataFireStore')
+                      .collection('TournamentData')
                       .snapshots(),
                   builder: (context, snapshot) {
                     List<DropdownMenuItem> tournamentItems = [];
                     if (!snapshot.hasData) {
                       const CircularProgressIndicator();
                     } else {
-                      final TournamentDataFireStores =
+                      final TournamentDatas =
                           snapshot.data?.docs.reversed.toList();
                       tournamentItems.add(const DropdownMenuItem(
                           value: "0", child: Text('Select Tournament')));
-
-                      for (var TournamentDataFireStore
-                          in TournamentDataFireStores!) {
+                      for (var TournamentData in TournamentDatas!) {
                         tournamentItems.add(
                           DropdownMenuItem(
-                            value: TournamentDataFireStore.id,
+                            value: TournamentData.id,
                             child: Text(
-                              TournamentDataFireStore['tournamentName'],
+                              TournamentData['tournamentName'],
                             ),
                           ),
                         );
@@ -60,11 +58,11 @@ class _CalenderSetState extends State<CalenderSet> {
                     }
                     return DropdownButton(
                       items: tournamentItems,
-                      onChanged: (TournamentDataFireStoreValue) {
+                      onChanged: (TournamentDataValue) {
                         setState(() {
-                          selectedTournament = TournamentDataFireStoreValue;
+                          selectedTournament = TournamentDataValue;
                         });
-                        print(TournamentDataFireStoreValue);
+                        print(TournamentDataValue);
                       },
                       value: selectedTournament,
                       isExpanded: false,
