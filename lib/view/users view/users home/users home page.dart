@@ -1,3 +1,5 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:first_app/model/Account.dart';
 import 'package:first_app/view/owners%20view/owners%20screen%20page.dart';
 import 'package:flutter/material.dart';
 
@@ -10,6 +12,13 @@ class UsersHomePage extends StatefulWidget {
 }
 
 class _UsersHomePageState extends State<UsersHomePage> {
+  Account myAccount = Account(
+    userId: '0001',
+    name: 'yuya',
+    createdTime: Timestamp.now(),
+      updatedTime: Timestamp.now(),
+  );
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -142,10 +151,11 @@ class _UsersHomePageState extends State<UsersHomePage> {
                             child: Row(
                               crossAxisAlignment: CrossAxisAlignment.end,
                               mainAxisAlignment: MainAxisAlignment.end,
-                              children: const [
-                                Text('ID:'),
-
-                                Text(' PokerName: '),
+                              children:  [
+                               const Text('ID:'),
+                               Text(myAccount.userId),
+                               const Text(' PokerName: '),
+                                Text(myAccount.name),
                               ],
                             ),
                           ), //名前・IDの

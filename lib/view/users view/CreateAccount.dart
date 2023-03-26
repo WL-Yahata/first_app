@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:first_app/utils/authentication.dart';
 import 'package:first_app/view/users%20view/ScreenPage.dart';
 import 'package:flutter/material.dart';
@@ -20,11 +21,15 @@ class _CreateAccountState extends State<CreateAccount> {
 
   Future<void>getImageFromGallery() async {
     final pickedFile = await picker.pickImage(source: ImageSource.gallery);
-    if(pickedFile!=null) {
+    if (pickedFile != null) {
       setState(() {
         image = File(pickedFile.path);
       });
     }
+  }
+  Future<void>uploadImage()async{
+    final FirebaseStorage storageInstance = FirebaseStorage.instance;
+    final Reference ref = storageInstance.ref();
   }
 
   @override
