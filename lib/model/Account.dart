@@ -4,10 +4,9 @@ class Account{
   String id;
   String name;
   String imagepath;
-  String userId;
   Timestamp? createdTime;
   Timestamp? updatedTime;
 
-  Account({this.id = '',this.name = '',this.imagepath = '',this.userId = '',
+  Account({this.id = '',this.name = '',this.imagepath = '',
           this.createdTime,this.updatedTime});
 }

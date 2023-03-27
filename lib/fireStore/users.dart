@@ -9,7 +9,6 @@ class UserFirestore{
     try{
       await users.doc(newAccount.id).set({
         'name':newAccount.name,
-        'userid':newAccount.userId,
         'imagepath':newAccount.imagepath,
         'createdtime':Timestamp.now(),
         'updatedtime':Timestamp.now(),

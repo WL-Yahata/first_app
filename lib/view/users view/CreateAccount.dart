@@ -1,5 +1,8 @@
 import 'dart:io';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
+import 'package:first_app/fireStore/users.dart';
+import 'package:first_app/model/Account.dart';
 import 'package:first_app/utils/authentication.dart';
 import 'package:first_app/view/users%20view/ScreenPage.dart';
 import 'package:flutter/material.dart';
@@ -27,9 +30,13 @@ class _CreateAccountState extends State<CreateAccount> {
       });
     }
   }
-  Future<void>uploadImage()async{
+  Future<String>uploadImage(String uid)async{
     final FirebaseStorage storageInstance = FirebaseStorage.instance;
     final Reference ref = storageInstance.ref();
+    await ref.child(uid).putFile(image!);
+    String downloadUrl = await storageInstance.ref(uid).getDownloadURL();
+    print('image_path:$downloadUrl');
+    return downloadUrl;
   }
 
   @override
@@ -94,10 +101,19 @@ class _CreateAccountState extends State<CreateAccount> {
                 ElevatedButton(onPressed: () async{
                   if(nameController.text.isNotEmpty && emailController.text.isNotEmpty && passController.text.isNotEmpty && image !=null){
                   var result = await Authentication.signUp(name: nameController.text, email: emailController.text, password: passController.text);
-                  if(result == true) {
-                      Navigator.push(context,
-                        MaterialPageRoute(
-                            builder: (context) => const UsersScreenPage()));
+                  if(result is UserCredential) {
+                   String imagePath =  await uploadImage(result.user!.uid);
+                   Account newAccount = Account(
+                     id: result.user!.uid,
+                     name: nameController.text,
+                     imagepath: imagePath,
+                   );
+                   var result1 = await UserFirestore.setUser(newAccount);
+                   if(result1 == true) {
+                     Navigator.push(context,
+                         MaterialPageRoute(
+                             builder: (context) => const UsersScreenPage()));
+                   }
                   }
                   }
                 }, child: const Text('作成')),

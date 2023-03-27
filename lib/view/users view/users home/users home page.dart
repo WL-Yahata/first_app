@@ -13,7 +13,6 @@ class UsersHomePage extends StatefulWidget {
 
 class _UsersHomePageState extends State<UsersHomePage> {
   Account myAccount = Account(
-    userId: '0001',
     name: 'yuya',
     createdTime: Timestamp.now(),
       updatedTime: Timestamp.now(),
@@ -152,8 +151,6 @@ class _UsersHomePageState extends State<UsersHomePage> {
                               crossAxisAlignment: CrossAxisAlignment.end,
                               mainAxisAlignment: MainAxisAlignment.end,
                               children:  [
-                               const Text('ID:'),
-                               Text(myAccount.userId),
                                const Text(' PokerName: '),
                                 Text(myAccount.name),
                               ],
