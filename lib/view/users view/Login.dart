@@ -1,3 +1,4 @@
+import 'package:first_app/utils/authentication.dart';
 import 'package:first_app/view/users%20view/CreateAccount.dart';
 import 'package:first_app/view/users%20view/ScreenPage.dart';
 import 'package:flutter/gestures.dart';
@@ -61,8 +62,11 @@ class _LoginPageState extends State<LoginPage> {
                   )
               ),
               const SizedBox(height: 70),
-              ElevatedButton(onPressed: (){
-                Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => const UsersScreenPage()));
+              ElevatedButton(onPressed: ()async{
+               var result = await Authentication.emailSignIn(email:emailController.text,password:passController.text);
+               if(result == true) {
+                 Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => const UsersScreenPage()));
+               }
               }, child: const Text('ログイン'))
             ],
           ),
