@@ -1,3 +1,5 @@
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:first_app/fireStore/users.dart';
 import 'package:first_app/utils/authentication.dart';
 import 'package:first_app/view/users%20view/CreateAccount.dart';
 import 'package:first_app/view/users%20view/ScreenPage.dart';
@@ -64,8 +66,11 @@ class _LoginPageState extends State<LoginPage> {
               const SizedBox(height: 70),
               ElevatedButton(onPressed: ()async{
                var result = await Authentication.emailSignIn(email:emailController.text,password:passController.text);
-               if(result == true) {
+               if(result is UserCredential) {
+                var result1 =  await UserFirestore.getUser(result.user!.uid);
+                 if(result1 == true){
                  Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => const UsersScreenPage()));
+                }
                }
               }, child: const Text('ログイン'))
             ],
