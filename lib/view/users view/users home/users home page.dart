@@ -1,7 +1,13 @@
+import 'dart:io';
+
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:first_app/model/Account.dart';
 import 'package:first_app/utils/authentication.dart';
 import 'package:first_app/view/owners%20view/owners%20screen%20page.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
+
+import '../../../model/Post.dart';
 
 
 class UsersHomePage extends StatefulWidget {
@@ -14,9 +20,21 @@ class UsersHomePage extends StatefulWidget {
 class _UsersHomePageState extends State<UsersHomePage> {
   Account myAccount = Authentication.myAccount!;
 
+  DateTime parseTime(dynamic date) {
+    return Platform.isIOS ? (date as Timestamp).toDate() : (date as DateTime);
+  }
+
+  List<Post> postList = [
+    Post(name:'',content: 'ヤッホ', createdTime: Timestamp.now()),
+    Post(name:'',content: 'は〜い', createdTime: Timestamp.now()),
+    Post(name:'',content: 'ヤッホー', createdTime: Timestamp.now()),
+    Post(name:'',content: 'は〜い', createdTime: Timestamp.now()),
+  ];
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+
       drawer: Drawer(
         child: TextButton(
             onPressed: () {
@@ -175,7 +193,55 @@ class _UsersHomePageState extends State<UsersHomePage> {
                   borderRadius: BorderRadius.circular(10),
                 ),
 
-            ),
+          child: ListView.builder(
+            itemCount: postList.length,
+            itemBuilder: (context, index) {
+              return Container(
+                decoration: BoxDecoration(
+                    border: index == 0
+                        ? const Border(
+                      top: BorderSide(
+                          color: Colors.black45, width: 0),
+                      bottom: BorderSide(
+                          color: Colors.black45, width: 0),
+                    )
+                        : const Border(
+                      bottom: BorderSide(
+                          color: Colors.black45, width: 0),
+                    )),
+                padding: const EdgeInsets.symmetric(
+                    horizontal: 10, vertical: 10),
+                child: Row(
+                  children: [
+                    const CircleAvatar(
+                      radius: 22,
+                    ),
+                    Expanded(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Row(
+                            mainAxisAlignment:
+                            MainAxisAlignment.spaceBetween,
+                            children: [
+                              Text(
+                                postList[index].name.toString(),
+                                style: const TextStyle(
+                                    fontWeight: FontWeight.bold),
+                              ),
+                              Text(DateFormat('M/d/yyyy')
+                                  .format(postList[index].createdTime!.toDate()))
+                            ],
+                          ),
+                          Text(postList[index].content)
+                        ],
+                      ),
+                    )
+                  ],
+                ),
+              );
+            },
+          )),
           ], //追記：Columnの中のchildren
         ),
       ),
