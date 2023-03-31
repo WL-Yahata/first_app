@@ -9,7 +9,7 @@ class CalenderSet extends StatefulWidget {
 }
 
 class _CalenderSetState extends State<CalenderSet> {
-  String selectedTournament =  "0";
+  String selectedTournament = "0";
   String initMonth = DateTime.now().month.toString().padLeft(2, '0');
   String initDay = DateTime.now().day.toString().padLeft(2, '0');
   String initYear = DateTime.now().year.toString();
@@ -17,7 +17,6 @@ class _CalenderSetState extends State<CalenderSet> {
   String initStartMinutes = '00';
   String initEndHours = '12';
   String initEndMinutes = '00';
-
 
   List<String> monthList() {
     final month = <String>[
@@ -36,6 +35,7 @@ class _CalenderSetState extends State<CalenderSet> {
     ];
     return month;
   }
+
   List<String> dayThirtyOne() {
     final day = <String>[
       '01',
@@ -72,6 +72,7 @@ class _CalenderSetState extends State<CalenderSet> {
     ];
     return day;
   }
+
   List<String> yearTen() {
     final year = <String>[
       '2023',
@@ -88,6 +89,7 @@ class _CalenderSetState extends State<CalenderSet> {
     ];
     return year;
   }
+
   List<String> hoursList() {
     final hours = <String>[
       '00',
@@ -118,6 +120,7 @@ class _CalenderSetState extends State<CalenderSet> {
     ];
     return hours;
   }
+
   List<String> minutesList() {
     final minutes = <String>[
       '00',
@@ -256,7 +259,7 @@ class _CalenderSetState extends State<CalenderSet> {
                     value: initStartHours,
                     items: hoursList()
                         .map((list) =>
-                        DropdownMenuItem(value: list, child: Text(list)))
+                            DropdownMenuItem(value: list, child: Text(list)))
                         .toList(),
                     onChanged: (value) {
                       setState(() {
@@ -268,7 +271,7 @@ class _CalenderSetState extends State<CalenderSet> {
                     value: initStartMinutes,
                     items: minutesList()
                         .map((list) =>
-                        DropdownMenuItem(value: list, child: Text(list)))
+                            DropdownMenuItem(value: list, child: Text(list)))
                         .toList(),
                     onChanged: (value) {
                       setState(() {
@@ -291,7 +294,7 @@ class _CalenderSetState extends State<CalenderSet> {
                     value: initEndHours,
                     items: hoursList()
                         .map((list) =>
-                        DropdownMenuItem(value: list, child: Text(list)))
+                            DropdownMenuItem(value: list, child: Text(list)))
                         .toList(),
                     onChanged: (value) {
                       setState(() {
@@ -303,7 +306,7 @@ class _CalenderSetState extends State<CalenderSet> {
                     value: initEndMinutes,
                     items: minutesList()
                         .map((list) =>
-                        DropdownMenuItem(value: list, child: Text(list)))
+                            DropdownMenuItem(value: list, child: Text(list)))
                         .toList(),
                     onChanged: (value) {
                       setState(() {
@@ -317,14 +320,28 @@ class _CalenderSetState extends State<CalenderSet> {
                 child: Row(
                   children: [
                     Text(selectedTournament),
-                    Text(initYear),
-                    Text(initMonth),
-                    Text(initDay),
-                    Text(initStartHours),
-                    Text(initStartMinutes),
+                    Text(
+                        '$initDay/$initMonth/$initYear $initStartHours:$initStartMinutes:00'),
+                    Text(
+                        '$initDay/$initMonth/$initYear $initEndHours:$initEndMinutes:00'),
                   ],
                 ),
               ), //debug用に作ったもの「selectedTournament」が変数でこれを日付と共にfirestoreに入れる
+              ElevatedButton(
+                child: const Text('予定を追加'),
+                onPressed: () async {
+                  await FirebaseFirestore.instance
+                      .collection('CalendarAppointmentCollection') // コレクションID
+                      .doc() // ドキュメントID
+                      .set({
+                    'Subject': selectedTournament,
+                    'StartTime':
+                        '$initDay/$initMonth/$initYear $initStartHours:$initStartMinutes:00',
+                    'EndTime':
+                        '$initDay/$initMonth/$initYear $initEndHours:$initEndMinutes:00'
+                  }); // データ
+                },
+              ),
             ],
           ),
         ),
