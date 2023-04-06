@@ -17,7 +17,6 @@ class OwnersSchedulePage extends StatefulWidget {
 class OwnersSchedulePageState extends State<OwnersSchedulePage> {
   List<Color> _colorCollection = <Color>[];
   MeetingDataSource? events;
-  final List<String> options = <String>['Add', 'Delete', 'Update'];
   final databaseReference = FirebaseFirestore.instance;
 
   @override
