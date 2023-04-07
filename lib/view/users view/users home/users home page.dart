@@ -1,6 +1,8 @@
 import 'dart:io';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:first_app/fireStore/posts.dart';
+import 'package:first_app/fireStore/users.dart';
 import 'package:first_app/model/Account.dart';
 import 'package:first_app/utils/authentication.dart';
 import 'package:first_app/view/owners%20view/owners%20screen%20page.dart';
@@ -18,18 +20,16 @@ class UsersHomePage extends StatefulWidget {
 }
 
 class _UsersHomePageState extends State<UsersHomePage> {
-  Account myAccount = Authentication.myAccount!;
+
 
   DateTime parseTime(dynamic date) {
     return Platform.isIOS ? (date as Timestamp).toDate() : (date as DateTime);
   }
-
-  List<Post> postList = [
-    Post(name:'',content: 'ヤッホ', createdTime: Timestamp.now()),
-    Post(name:'',content: 'は〜い', createdTime: Timestamp.now()),
-    Post(name:'',content: 'ヤッホー', createdTime: Timestamp.now()),
-    Post(name:'',content: 'は〜い', createdTime: Timestamp.now()),
-  ];
+Account myAccount = Account(
+  name: Authentication.myAccount!.name,
+  imagepath: Authentication.myAccount!.imagepath,
+);
+  
 
   @override
   Widget build(BuildContext context) {
@@ -193,54 +193,89 @@ class _UsersHomePageState extends State<UsersHomePage> {
                   borderRadius: BorderRadius.circular(10),
                 ),
 
-          child: ListView.builder(
-            itemCount: postList.length,
-            itemBuilder: (context, index) {
-              return Container(
-                decoration: BoxDecoration(
-                    border: index == 0
-                        ? const Border(
-                      top: BorderSide(
-                          color: Colors.black45, width: 0),
-                      bottom: BorderSide(
-                          color: Colors.black45, width: 0),
-                    )
-                        : const Border(
-                      bottom: BorderSide(
-                          color: Colors.black45, width: 0),
-                    )),
-                padding: const EdgeInsets.symmetric(
-                    horizontal: 10, vertical: 10),
-                child: Row(
-                  children: [
-                    const CircleAvatar(
-                      radius: 22,
-                    ),
-                    Expanded(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Row(
-                            mainAxisAlignment:
-                            MainAxisAlignment.spaceBetween,
-                            children: [
-                              Text(
-                                postList[index].name.toString(),
-                                style: const TextStyle(
-                                    fontWeight: FontWeight.bold),
-                              ),
-                              Text(DateFormat('M/d/yyyy')
-                                  .format(postList[index].createdTime!.toDate()))
-                            ],
-                          ),
-                          Text(postList[index].content)
-                        ],
-                      ),
-                    )
-                  ],
-                ),
-              );
-            },
+          child: StreamBuilder<QuerySnapshot>(
+            stream: PostFirestore.posts.snapshots(),
+            builder: (context, postSnapshot) {
+              if(postSnapshot.hasData) {
+                List<String> postAccountIds = [];
+                for (var doc in postSnapshot.data!.docs) {
+                  Map<String, dynamic> data = doc.data() as Map<String, dynamic>;
+                  if(postAccountIds.contains(data['post_account_id'])) {
+                    postAccountIds.add(data['post_account_id']);
+                  }
+                }
+                return FutureBuilder<Map<String, Account>?>(
+                  future: UserFirestore.getPostUserMap(postAccountIds),
+                  builder: (context, userSnapshot) {
+                    if(userSnapshot.hasData && userSnapshot.connectionState == ConnectionState.done) {
+                      return ListView.builder(
+                        itemCount: postSnapshot.data!.docs.length,
+                        itemBuilder: (context, index) {
+                          Map<String, dynamic> data = postSnapshot.data!.docs[index].data() as Map<String, dynamic>;
+                          Post post = Post(
+                            id:postSnapshot.data!.docs[index].id,
+                            content: data['content'],
+                            postAccountId: data['post_account_id'],
+                            createdTime: data['created_time']
+                          );
+                          return Container(
+                            decoration: BoxDecoration(
+                                border: index == 0
+                                    ? const Border(
+                                  top: BorderSide(
+                                      color: Colors.black45, width: 0),
+                                  bottom: BorderSide(
+                                      color: Colors.black45, width: 0),
+                                )
+                                    : const Border(
+                                  bottom: BorderSide(
+                                      color: Colors.black45, width: 0),
+                                )),
+                            padding: const EdgeInsets.symmetric(
+                                horizontal: 10, vertical: 10),
+                            child: Row(
+                              children: [
+                                 CircleAvatar(
+                                  radius: 22,
+                                  backgroundImage: NetworkImage(myAccount.imagepath),
+                                ),
+                                Expanded(
+                                  child: Column(
+                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    children: [
+                                      Row(
+                                        mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                        children: [
+                                          Text(
+                                            post.name.toString(),
+                                            style: const TextStyle(
+                                                fontWeight: FontWeight.bold),
+                                          ),
+                                          Text(DateFormat('M/d/yyyy')
+                                              .format(post.createdTime!.toDate()))
+                                        ],
+                                      ),
+                                      Text(post.content)
+                                    ],
+                                  ),
+                                )
+                              ],
+                            ),
+                          );
+                        },
+                      );
+                    }else {
+                      return Container();
+                    }
+
+                  }
+                );
+              }else {
+                return Container();
+              }
+
+            }
           )),
           ], //追記：Columnの中のchildren
         ),
