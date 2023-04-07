@@ -67,10 +67,15 @@ class _LoginPageState extends State<LoginPage> {
               ElevatedButton(onPressed: ()async{
                var result = await Authentication.emailSignIn(email:emailController.text,password:passController.text);
                if(result is UserCredential) {
-                var result1 =  await UserFirestore.getUser(result.user!.uid);
-                 if(result1 == true){
-                 Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => const UsersScreenPage()));
-                }
+                 if(result.user!.emailVerified == true) {
+                   var result1 =  await UserFirestore.getUser(result.user!.uid);
+                   if(result1 == true){
+                     // ignore: use_build_context_synchronously
+                     Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => const UsersScreenPage()));
+                   }
+                 }else {
+                   print('メール認証ができていません。');
+                 }
                }
               }, child: const Text('ログイン'))
             ],

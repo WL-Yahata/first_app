@@ -50,6 +50,8 @@
     <key>NSMicrophoneUsageDescription</key>
     <string>This app requires to add file to your phone library tour microphone</string>
 	<key>CADisableMinimumFrameDurationOnPhone</key>
+	  <key>NSFaceIDUsageDescription</key>
+    　　　　<string>生体認証を使用する目的を記述</string>
 	<true/>
 	<key>UIApplicationSupportsIndirectInputEvents</key>
 	<true/>

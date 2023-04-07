@@ -4,7 +4,7 @@ import 'package:firebase_storage/firebase_storage.dart';
 import 'package:first_app/fireStore/users.dart';
 import 'package:first_app/model/Account.dart';
 import 'package:first_app/utils/authentication.dart';
-import 'package:first_app/view/users%20view/ScreenPage.dart';
+import 'package:first_app/view/users%20view/Check%20Email.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 
@@ -38,6 +38,7 @@ class _CreateAccountState extends State<CreateAccount> {
     print('image_path:$downloadUrl');
     return downloadUrl;
   }
+
 
   @override
   Widget build(BuildContext context) {
@@ -108,11 +109,17 @@ class _CreateAccountState extends State<CreateAccount> {
                      name: nameController.text,
                      imagepath: imagePath,
                    );
+
                    var result1 = await UserFirestore.setUser(newAccount);
                    if(result1 == true) {
-                     Navigator.push(context,
-                         MaterialPageRoute(
-                             builder: (context) => const UsersScreenPage()));
+                     result.user!.sendEmailVerification();
+                     // ignore: use_build_context_synchronously
+                     Navigator.push(context, MaterialPageRoute(
+                             builder: (context) =>  CheckEmailPage(
+                                 email: emailController.text,
+                                 password: passController.text
+                             )
+                     ));
                    }
                   }
                   }

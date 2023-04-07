@@ -39,6 +39,7 @@ class _PostPageState extends State<PostPage> {
                 );
                 var result = await PostFirestore.addPost(newPost);
                 if(result == true){
+                  // ignore: use_build_context_synchronously
                   Navigator.pop(context);
                 }
               }
