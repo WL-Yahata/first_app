@@ -73,7 +73,8 @@ class OwnersSchedulePageState extends State<OwnersSchedulePage> {
                   );
                 },
               )
-            ]),
+            ]
+        ),
         floatingActionButton: FloatingActionButton(
           onPressed: () {
             Navigator.push(
