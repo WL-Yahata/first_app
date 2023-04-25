@@ -34,6 +34,13 @@ class _QrScanPageState extends State<QrScanPage> {
            print(data.code);
          });
         },
+        overlay: QrScannerOverlayShape(
+          borderColor: Colors.black,
+          borderRadius: 10,
+          borderLength: 30,
+          borderWidth: 10,
+          cutOutSize: 200,
+        ),
       ),
     );
   }

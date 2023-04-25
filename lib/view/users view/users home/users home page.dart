@@ -8,6 +8,7 @@ import 'package:first_app/utils/authentication.dart';
 import 'package:first_app/view/owners%20view/owners%20screen%20page.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:qr_flutter/qr_flutter.dart';
 
 import '../../../model/Post.dart';
 
@@ -62,10 +63,21 @@ Account myAccount = Account(
         child: Column(
           children: [
             Container(
+              //QRコード
+                alignment: Alignment.center,
+                padding: const EdgeInsets.all(10.0),
+
+                child: QrImage(
+                  data:UserFirestore.users  as String,
+                  size: 120,
+                  backgroundColor: Colors.white,
+                ),
+            ),
+            Container(
                 alignment: Alignment.topCenter,
                 padding: const EdgeInsets.all(2.0),
                 margin: const EdgeInsets.only(
-                  top: 50.0,
+                  top: 20.0,
                   bottom: 40.0,
                   right: 10.0,
                   left: 10.0,
@@ -79,22 +91,12 @@ Account myAccount = Account(
                 ),
                 child: Row(
                   children: [
-                    Container(
-                      //QRコード
-                        alignment: Alignment.centerLeft,
-                        padding: const EdgeInsets.all(10.0),
-                        margin: const EdgeInsets.only(
-                          top: 0.0,
-                          bottom: 0.0,
-                          right: 0.0,
-                          left: 5.0,
-                        ),
-                        width: MediaQuery.of(context).size.width * 0.21,
-                        height: MediaQuery.of(context).size.height * 0.12,
-                        decoration: const BoxDecoration(
-                          color: Colors.black45,
-                        )),
-                    //QRコード
+                    const CircleAvatar(
+                      //店舗画像
+                      radius: 40,
+                      backgroundImage: NetworkImage('https://casino-deck.com/wp-content/uploads/2021/02/WP-ichatch-leje.png'),
+                    ),
+                    //店舗画像
                     Container(
                       //店のアイコン画像とpt表示とID・名前
                       padding: const EdgeInsets.all(0.0),
@@ -107,48 +109,55 @@ Account myAccount = Account(
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.end,
                         children: [
-                          Container(), //店のアイコン画像
                           Container(
                             //ptの表示
-
                             padding: const EdgeInsets.all(0.0),
                             margin: const EdgeInsets.all(0.0),
                             width: MediaQuery.of(context).size.width * 0.95,
                             height: 80,
-                            decoration: const BoxDecoration(
-
-                            ),
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.end,
-                              mainAxisAlignment: MainAxisAlignment.center,
+                            child: Row(
                               children: [
-                                Row(
-                                  children: const [
-                                    Text('    play money 1       '),
+                                Container(
+                                  padding: const EdgeInsets.all(0.0),
+                                  margin: const EdgeInsets.all(0.0),
+                                  width: MediaQuery.of(context).size.width * 0.4,
+                                  child: Column(
+                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: const [
+                                          Text('  　  Prize     '),
+                                      SizedBox(
+                                        height: 5,
+                                      ),
+                                          Text('   　 Sponsored     '),
+                                      SizedBox(
+                                        height: 5,
+                                      ),
+                                          Text('  　  Sidegame Chips   '),
+                                    ],
+                                  ),
+                                ),
+                                Container(
+                                  padding: const EdgeInsets.all(0.0),
+                                  margin: const EdgeInsets.all(0.0),
+                                  width: MediaQuery.of(context).size.width * 0.2,
 
-                                    Text('pt.'),
-                                  ],
-                                ),
-                                const SizedBox(
-                                  height: 5,
-                                ),
-                                Row(
-                                  children: const [
-                                    Text('    play money 2       '),
-
-                                    Text('pt.'),
-                                  ],
-                                ),
-                                const SizedBox(
-                                  height: 5,
-                                ),
-                                Row(
-                                  children: const [
-                                    Text('    play money 3       '),
-
-                                    Text('pt.'),
-                                  ],
-                                ),
+                                    child: Column(
+                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: const [
+                                          Text(' 10000'),
+                                       SizedBox(
+                                        height: 5,
+                                      ),
+                                          Text(' 10000'),
+                                      SizedBox(
+                                        height: 5,
+                                      ),
+                                          Text(' 10000'),
+                                    ],
+                                  ),
+                                )
                               ],
                             ),
                           ), //ptの表示の
@@ -159,7 +168,6 @@ Account myAccount = Account(
                             width: MediaQuery.of(context).size.width * 0.95,
                             height: 38,
                             decoration: const BoxDecoration(
-
                             ),
                             child: Row(
                               crossAxisAlignment: CrossAxisAlignment.end,
