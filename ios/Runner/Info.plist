@@ -57,5 +57,7 @@
 	<false/>
 	<key>io.flutter.embedded_views_preview</key>
 	<true/>
+	<key>NSFaceIDUsageDescription</key>
+    <string>ログインのために顔認証が必要です</string>
 </dict>
 </plist>

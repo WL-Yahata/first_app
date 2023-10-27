@@ -5,6 +5,7 @@ import 'package:first_app/fireStore/posts.dart';
 import 'package:first_app/fireStore/users.dart';
 import 'package:first_app/model/Account.dart';
 import 'package:first_app/utils/authentication.dart';
+import 'package:first_app/view/owners%20view/owners%20home/user_information.dart';
 import 'package:first_app/view/owners%20view/owners%20screen%20page.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
@@ -68,8 +69,8 @@ Account myAccount = Account(
                 padding: const EdgeInsets.all(10.0),
 
                 child: QrImage(
-                  data:UserFirestore.users  as String,
                   size: 120,
+                  data:'https://console.firebase.google.com/project/first-app-124f3/firestore/data/~2Fposts~2F6Yc1dhdvWUNzs4xrBSkw?hl=jaf',
                   backgroundColor: Colors.white,
                 ),
             ),
@@ -121,10 +122,10 @@ Account myAccount = Account(
                                   padding: const EdgeInsets.all(0.0),
                                   margin: const EdgeInsets.all(0.0),
                                   width: MediaQuery.of(context).size.width * 0.4,
-                                  child: Column(
+                                  child: const Column(
                                     crossAxisAlignment: CrossAxisAlignment.start,
                                     mainAxisAlignment: MainAxisAlignment.center,
-                                    children: const [
+                                    children: [
                                           Text('  　  Prize     '),
                                       SizedBox(
                                         height: 5,
@@ -142,10 +143,10 @@ Account myAccount = Account(
                                   margin: const EdgeInsets.all(0.0),
                                   width: MediaQuery.of(context).size.width * 0.2,
 
-                                    child: Column(
+                                    child: const Column(
                                     crossAxisAlignment: CrossAxisAlignment.start,
                                     mainAxisAlignment: MainAxisAlignment.center,
-                                    children: const [
+                                    children: [
                                           Text(' 10000'),
                                        SizedBox(
                                         height: 5,

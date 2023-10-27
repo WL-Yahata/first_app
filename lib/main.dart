@@ -1,6 +1,7 @@
 import 'package:first_app/view/users%20view/Login.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:local_auth/local_auth.dart';
 import 'firebase_options.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
@@ -42,6 +43,23 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
+
+  final auth = LocalAuthentication();
+  Future<bool>canCheckLocalAuth() async {
+    return await auth.canCheckBiometrics;
+  }
+
+  Future<List<BiometricType>>getAvailableBiometrics() async{
+    return auth.getAvailableBiometrics();
+  }
+
+  Future<bool>authenticate() async{
+    return await auth.authenticate(
+        localizedReason: '生体認証を行います',
+      options: const AuthenticationOptions(useErrorDialogs: true),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return const MaterialApp(home: LoginPage());
