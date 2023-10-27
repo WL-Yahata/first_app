@@ -24,24 +24,24 @@ class _QrScanPageState extends State<QrScanPage> {
         ),
         backgroundColor: Colors.white,
       ),
-      body: QRView(
-       key: _key,
-        onQRViewCreated: (QRViewController controller) {
-         setState(() {
-           qrViewController = controller;
-         });
-         controller.scannedDataStream.listen((data) {
-           print(data.code);
-         });
-        },
-        overlay: QrScannerOverlayShape(
-          borderColor: Colors.black,
-          borderRadius: 10,
-          borderLength: 30,
-          borderWidth: 10,
-          cutOutSize: 200,
-        ),
-      ),
+      //body: QRView(
+       //key: _key,
+        //onQRViewCreated: (QRViewController controller) {
+         //setState(() {
+          // qrViewController = controller;
+        // });
+         //controller.scannedDataStream.listen((data) {
+          // print(data.code);
+        // });
+       // },
+        //overlay: QrScannerOverlayShape(
+          //borderColor: Colors.black,
+          //borderRadius: 10,
+         // borderLength: 30,
+          //borderWidth: 10,
+         // cutOutSize: 200,
+        //),
+      //),
     );
   }
 }

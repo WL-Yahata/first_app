@@ -44,7 +44,7 @@ dependencies:
   riverpod: ^2.3.4
   flutter_riverpod: ^2.3.4
   hooks_riverpod: ^2.3.4
-  local_auth: ^2.1.6
+  local_auth: ^2.1.7
   qr_code_scanner: ^1.0.1
   qr_flutter: ^4.0.0
   intl: any
